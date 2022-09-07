@@ -478,10 +478,14 @@ padding-bottom: 15px;
 }
 
 .bluearea{ 
-padding-top: 3%;
+padding-top: 25px;
 padding-bottom:1%;
 background-color: #2044d5;
 color: rgb(245, 242, 235);
+}
+
+.bluearea h1 {
+    padding-bottom: 20px;
 }
 
 
@@ -539,4 +543,8 @@ background-image: url('../images/capture.png');
 
 .accordion-button:not(.collapsed)::after{
 background-image: url('../images/capture.png');
+}
+
+.accordion-item {
+    color: rgb(245, 242, 235);
 }
