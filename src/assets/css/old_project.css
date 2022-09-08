@@ -498,7 +498,7 @@ width:50%;
 background-color: #2044d5;
 border-left:none;
 border-right: none;
-/* border-top: none; */
+border-top: none;
 border-bottom:none;
 /* border-color: rgb(187, 186, 183); */
 font-size: 20px;
@@ -521,11 +521,13 @@ border-bottom: none;
 font-size: 20px;
 
 color:rgb(245, 242, 235);
+box-shadow: none;
 }
 
 .accordion-button:not(.collapsed){
 background-color: #2044d5;
 color: rgb(245, 242, 235);
+box-shadow: none;
 /* padding-top: 2%; */
 }
 .accordion-button:focus{
