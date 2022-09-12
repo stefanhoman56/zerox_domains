@@ -12,10 +12,9 @@ code {
     monospace;
 } */
 
-@media (min-width: 1200px)
-{
+@media (min-width: 1200px) {
   .h1, h1 {
-      font-size: 2.5rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -37,4 +36,18 @@ button, input, optgroup, select, textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+}
+
+.popup-overlay {
+  position: fixed;
+  inset: 0px;
+  display: flex;
+  z-index: 999;
+  pointer-events: auto;
+}
+
+#popup-1 {
+  position: relative;
+  margin: auto;
+  pointer-events: auto;
 }
