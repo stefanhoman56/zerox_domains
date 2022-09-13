@@ -7,6 +7,7 @@ import { providerOptions, ContractAddress, DomainSuffix, RinkebyChainID, Mainnet
 import { ethers } from "ethers";
 import { useEffect } from 'react';
 import ContractABI from '../constants/abi';
+import SaleModal from '../components/SaleModal';
 
 const web3Modal = new Web3Modal({
     cacheProvider: true, // optional
@@ -14,24 +15,21 @@ const web3Modal = new Web3Modal({
 });
 
 const Home = () => {
-    const [provider, setProvider] = useState();
     const [library, setLibrary] = useState();
-    const [error, setError] = useState("");
     const [account, setAccount] = useState();
-    const [chainId, setChainId] = useState();
-    const [network, setNetwork] = useState();
-    const [message, setMessage] = useState("");
-    const [signature, setSignature] = useState("");
-    const [verified, setVerified] = useState();
-    // const [contract, setContract] = useState();
     const [newDomain, setNewDomain] = useState("");
     const [buyDomain, setBuyDomain] = useState("");
     const [initialPrice, setInitialPrice] = useState("");
-    const [salePrice, setSalePrice] = useState();
+    const [buyPrice, setBuyPrice] = useState();
     const [userContract, setUserContract] = useState();
     const [userDomains, setUserDomains] = useState([]);
-    const [successMessage, setSuccessMessage] = useState("");
     const [sellIndex, setSellIndex] = useState(-1);
+    const [openSaleModal, setOpenSaleModal] = useState(false);
+    const [saleDomain, setSaleDomain] = useState(false);
+    const [message, setMessage] = useState({
+        text: "",
+        error: false,
+    })
 
     const defaultProvider = new ethers.providers.InfuraProvider(RinkebyChainID, "ddef606e612846de9e71a2174cea02fb");
     const readContract = new ethers.Contract(ContractAddress, ContractABI, defaultProvider);
@@ -42,37 +40,24 @@ const Home = () => {
             const library = new ethers.providers.Web3Provider(provider);
             const accounts = await library.listAccounts();
             const network = await library.getNetwork();
-            setProvider(provider);
             setLibrary(library);
             if (accounts)
                 setAccount(accounts[0]);
             
             const contract = new ethers.Contract(ContractAddress, ContractABI, library.getSigner());
             setUserContract(contract);
-            setChainId(network.chainId);
         } catch (error) {
-            setError(error);
+            setMessage({
+                text: error,
+                error: true,
+            })
         }
-    };
-
-    const handleNetwork = (e) => {
-        const id = e.target.value;
-        setNetwork(Number(id));
-    };
-
-    const refreshState = () => {
-        setAccount();
-        setChainId();
-        setNetwork("");
-        setMessage("");
-        setSignature("");
-        // setContract();
-        setVerified(undefined);
     };
 
     const disconnectWallet = () => {
         web3Modal.clearCachedProvider();
-        refreshState();
+        setAccount();
+        setMessage("");
     };
 
     const reduceAddress = (address) => {
@@ -113,18 +98,21 @@ const Home = () => {
         let domainStatus = await readContract.domainStatus(domain);
         domainStatus = domainStatus.toNumber();
         if (domainStatus === 0) { // not exist
-            setSalePrice();
-            setError();
+            setBuyPrice();
+            setMessage({});
             buy(domain, price);
         } else if (domainStatus === 1) { // for sale
             let price = await readContract.getPrice(domain);
             price = ethers.utils.formatEther(price);
-            setSalePrice(price);
-            setError();
+            setBuyPrice(price);
+            setMessage({});
         } else if (domainStatus === 2) { // is using
             const owner = await readContract.ownerOfDomain(domain);
-            setSalePrice();
-            setError(`Unavailable: registered by ${owner}`);
+            setBuyPrice();
+            setMessage({
+                text: `Unavailable: registered by ${owner}`,
+                error: true
+            })
         }
     };
 
@@ -135,20 +123,52 @@ const Home = () => {
 
     const buy = async (domain, price) => {
         if (!account) {
-            setError("Connect to wallet using the top right button!");
+            setMessage({
+                text: "Connect to wallet using the top right button!",
+                error: true,
+            })
         } else {
             try {
                 const transaction = await userContract.registerDomain(domain, {value: ethers.utils.parseEther(price.toString())});
                 // const transaction = await userContract.registerDomain(domain, {value: "1000000000"});
                 await transaction.wait();
-                setSuccessMessage("Successfully bought domain: " + domain);
+                setMessage({
+                    text: "Successfully bought domain: " + domain,
+                    error: false,
+                })
                 refreshUserDomains();
-                setSalePrice();
+                setBuyPrice();
             } catch (error) {
-                setError(capitalizeFirstLetter(error.reason));
+                setMessage({
+                    text: capitalizeFirstLetter(error.reason),
+                    error: true,
+                })
             }
         }
     }
+
+    const showSaleModal = (domain) => {
+        setSaleDomain(domain);
+        setOpenSaleModal(true);
+    }
+
+    const setSalePrice = async (price) => {
+        console.log(ethers.utils.parseEther(price))
+        setOpenSaleModal(false);
+        try {
+            const transaction = await userContract.prepareSale(saleDomain, ethers.utils.parseEther(price));
+            await transaction.wait();
+            setMessage({
+                text: `Successfully set the selling price as ${price} ETH for domain ${saleDomain}`,
+                error: false
+            })
+        } catch (error) {
+            setMessage({
+                text: capitalizeFirstLetter(error.reason),
+                error: true
+            });
+        }
+    };
 
     return (
         <>
@@ -180,6 +200,7 @@ const Home = () => {
                                                 key={index}
                                                 onMouseEnter={() => setSellIndex(index)}
                                                 onMouseLeave={() => setSellIndex(-1)}
+                                                onClick={() => showSaleModal(domain)}
                                             >
                                                 { sellIndex === index ? (
                                                     <center style={{fontWeight: '600', cursor: 'pointer'}}>
@@ -211,20 +232,24 @@ const Home = () => {
                             &nbsp;Search
                         </button>
                     </div>
-                    <p id="error">{error}</p>
+                    { message.error && (
+                        <p id="error">{message.text}</p>
+                    )}
                     <div>
-                        { salePrice && (
+                        { buyPrice && (
                             <div id="newr">
                                 <p id="buyfrom">
-                                    Buy from owner for {salePrice} ETH 
+                                    Buy from owner for {buyPrice} ETH 
                                 </p>
-                                <button id="buybut" onClick={() => buy(buyDomain, salePrice)}>
+                                <button id="buybut" onClick={() => buy(buyDomain, buyPrice)}>
                                     Buy
                                 </button>
                             </div>
                         )}
                         <p></p>
-                        <p id="success">{successMessage}</p>
+                        { !message.error && (
+                            <p id="success">{message.text}</p>
+                        )}
                     </div>
                     <div className="popup-wrapper"></div>
                     <div id="board"></div>
@@ -232,27 +257,12 @@ const Home = () => {
                 <FAQ />
                 <Footer />
             </div>
-            <div id="popup-root">
-                <div data-testid="overlay" data-popup="modal" className="popup-overlay" tabIndex={-1}>
-                    <div className="popup-content " role="dialog" id="popup-1">
-                        <div className="drow">
-                            <h5>List domain for sale</h5>
-                        </div>
-                        <div className="drow">
-                            <h5> tetsuyayama.0x &nbsp;&nbsp;</h5>
-                            <input id="priceinput" type="text"/>
-                            <h5>&nbsp;&nbsp;ETH</h5>
-                        </div>
-                        <div className="drow">
-                            <p id="font">(Note: 1% of the sale will go to ZeroX Domains)</p>
-                        </div>
-                        <div className="drow">
-                            <div id="cancelb">Cancel</div>
-                            <div id="confirmb">Confirm</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <SaleModal
+                show={openSaleModal}
+                onConfirm={setSalePrice}
+                onCancel={() => setOpenSaleModal(false)}
+                domain={saleDomain}
+            />
         </>
     )
 };

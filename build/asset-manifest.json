@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/zerox_test/static/css/main.347e2be6.chunk.css",
+    "main.js": "/zerox_test/static/js/main.ccb3ffb6.chunk.js",
+    "main.js.map": "/zerox_test/static/js/main.ccb3ffb6.chunk.js.map",
+    "runtime-main.js": "/zerox_test/static/js/runtime-main.c8d820ea.js",
+    "runtime-main.js.map": "/zerox_test/static/js/runtime-main.c8d820ea.js.map",
+    "static/css/2.c2edc5f9.chunk.css": "/zerox_test/static/css/2.c2edc5f9.chunk.css",
+    "static/js/2.c2bd4dc1.chunk.js": "/zerox_test/static/js/2.c2bd4dc1.chunk.js",
+    "static/js/2.c2bd4dc1.chunk.js.map": "/zerox_test/static/js/2.c2bd4dc1.chunk.js.map",
+    "static/js/3.0cbcf3a5.chunk.js": "/zerox_test/static/js/3.0cbcf3a5.chunk.js",
+    "static/js/3.0cbcf3a5.chunk.js.map": "/zerox_test/static/js/3.0cbcf3a5.chunk.js.map",
+    "index.html": "/zerox_test/index.html",
+    "static/css/2.c2edc5f9.chunk.css.map": "/zerox_test/static/css/2.c2edc5f9.chunk.css.map",
+    "static/css/main.347e2be6.chunk.css.map": "/zerox_test/static/css/main.347e2be6.chunk.css.map",
+    "static/js/2.c2bd4dc1.chunk.js.LICENSE.txt": "/zerox_test/static/js/2.c2bd4dc1.chunk.js.LICENSE.txt",
+    "static/media/logo.c9e63e24.png": "/zerox_test/static/media/logo.c9e63e24.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c8d820ea.js",
+    "static/css/2.c2edc5f9.chunk.css",
+    "static/js/2.c2bd4dc1.chunk.js",
+    "static/css/main.347e2be6.chunk.css",
+    "static/js/main.ccb3ffb6.chunk.js"
+  ]
+}

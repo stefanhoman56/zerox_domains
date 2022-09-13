@@ -51,3 +51,7 @@ button, input, optgroup, select, textarea {
   margin: auto;
   pointer-events: auto;
 }
+
+.sale-modal {
+  max-width: 400px;
+}
