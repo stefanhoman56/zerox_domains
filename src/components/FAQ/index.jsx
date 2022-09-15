@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Collapse from 'react-bootstrap/Collapse';
+import './style.css';
 
 const FAQ = () => {
     const [collapseOpen, setCollapseOpen] = useState(-1);

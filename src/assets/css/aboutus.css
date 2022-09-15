@@ -1,0 +1,22 @@
+#gray {
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: rgb(217, 215, 215);
+    border: 1px solid rgb(217, 215, 215);
+}
+
+#white {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#title {
+    padding-top: 20px;
+    padding-left: 5%;
+    font-size: 25px;
+}
+
+#text {
+    font-size: 20px;
+    padding-bottom: 20px;
+}

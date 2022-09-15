@@ -1,0 +1,43 @@
+.footer {
+    /* padding-left: 5%; */
+    /* display: flex; */
+    vertical-align: middle;
+    position: absolute;
+    left: 0;
+    background-color: #202846;
+    width: 100%;
+    height: 10rem;
+    text-align: center;
+    padding-top: 60px;
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+}
+
+#contactus,
+#copyright,
+#aboutus {
+    width: 33%;
+    float: left;
+}
+
+#copyright {
+    padding-left: 5%;
+    float: left;
+}
+
+#contactus {
+    margin-top: -1.8%;
+    padding-right: 5%;
+    float: right;
+}
+
+.about:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.home:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

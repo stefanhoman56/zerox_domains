@@ -217,12 +217,12 @@ const Home = () => {
                     <div className="drow">
                         <div id="ox">.0x</div>
                     </div>
-                    <div id="flex">
+                    <div className="searched_domain">
                         <div id="greentext"> {buyDomain} </div>
                         <h3> {initialPrice && `Price: ${initialPrice} ETH`} </h3>
                     </div>
-                    <div className="drow">
-                        <input type="text" placeholder="Search for your new domain" value={newDomain} onChange={(e) => setNewDomain(e.target.value)} />
+                    <div className="drow searchbar">
+                        <input type="text" className="input_domain" placeholder="Search for your new domain" value={newDomain} onChange={(e) => setNewDomain(e.target.value)} />
                         <button id="publish" onClick={publish}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                                 <path
@@ -251,8 +251,6 @@ const Home = () => {
                             <p id="success">{message.text}</p>
                         )}
                     </div>
-                    <div className="popup-wrapper"></div>
-                    <div id="board"></div>
                 </div>
                 <FAQ />
                 <Footer />

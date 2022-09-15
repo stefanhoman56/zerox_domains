@@ -1,0 +1,84 @@
+.popup-overlay {
+    position: fixed;
+    inset: 0px;
+    display: flex;
+    z-index: 999;
+    pointer-events: auto;
+}
+
+#popup-1 {
+    position: relative;
+    margin: auto;
+    pointer-events: auto;
+}
+
+.sale-modal {
+    max-width: 400px;
+}
+
+.modal-content .drow {
+    padding-top: 10px;
+}
+
+#cancelb {
+    cursor: pointer;
+    font-family: Rubik, sans-serif;
+    color: #2951f1;
+    background-color: white;
+    border: 1px solid #2951f1;
+    font-size: 15px;
+    width: 87px;
+    border-radius: 15px;
+    height: 30px;
+    padding-top: 3px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    text-align: center !important;
+}
+
+.popup-content {
+    border-radius: 15px;
+    width: 400px !important;
+    height: 250px !important;
+}
+
+#confirmb {
+    cursor: pointer;
+    font-family: Rubik, sans-serif;
+    color: white;
+    background-color: #2951f1;
+    font-size: 15px;
+    margin-left: 5%;
+    width: 90px;
+    border-radius: 15px;
+    height: 30px;
+    padding-top: 4px;
+    margin-top: 5px;
+    text-align: center !important;
+}
+
+#priceinput {
+    /* margin-left: 20px; */
+    padding-left: 2px;
+    margin-top: 3%;
+    border-bottom-style: hidden;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+    font-size: 15px;
+    border: 1px solid rgb(180, 180, 180);
+    background-color: white;
+}
+
+h5 {
+    margin-top: 3%;
+    margin-left: -3px;
+}
+
+.modal-title {
+    font-size: 24px;
+}
+
+.modal-body .note {
+    margin-top: 10px;
+}

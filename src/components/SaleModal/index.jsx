@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import './style.css';
 
 const SaleModal = ({ show, onConfirm, onCancel, domain }) => {
     const [price, setPrice] = useState("");
@@ -25,14 +26,14 @@ const SaleModal = ({ show, onConfirm, onCancel, domain }) => {
             </Modal.Header> */}
             <Modal.Body>
                 <div className="drow">
-                    <h5>List domain for sale</h5>
+                    <h5 className="modal-title">List domain for sale</h5>
                 </div>
                 <div className="drow">
                     <h5> {domain} &nbsp;&nbsp;</h5>
                     <input id="priceinput" type="text" value={price} onChange={(e) => setPrice(e.target.value)}/>
                     <h5>&nbsp;&nbsp;ETH</h5>
                 </div>
-                <div className="drow">
+                <div className="drow note">
                     <p id="font">(Note: 1% of the sale will go to ZeroX Domains)</p>
                 </div>
                 <div className="drow">
