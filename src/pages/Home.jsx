@@ -8,6 +8,7 @@ import { ethers } from "ethers";
 import { useEffect } from 'react';
 import ContractABI from '../constants/abi';
 import SaleModal from '../components/SaleModal';
+import { useNavigate } from "react-router-dom";
 
 const web3Modal = new Web3Modal({
     cacheProvider: true, // optional
@@ -30,6 +31,11 @@ const Home = () => {
         text: "",
         error: false,
     })
+    const navigate = useNavigate();
+
+    const gotoAboutus = () => {
+        navigate('/aboutus');
+    };
 
     const defaultProvider = new ethers.providers.InfuraProvider(RinkebyChainID, "ddef606e612846de9e71a2174cea02fb");
     const readContract = new ethers.Contract(ContractAddress, ContractABI, defaultProvider);
@@ -170,6 +176,12 @@ const Home = () => {
         }
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            publish();
+        }
+    }
+
     return (
         <>
             <div>
@@ -222,7 +234,7 @@ const Home = () => {
                         <h3> {initialPrice && `Price: ${initialPrice} ETH`} </h3>
                     </div>
                     <div className="drow searchbar">
-                        <input type="text" className="input_domain" placeholder="Search for your new domain" value={newDomain} onChange={(e) => setNewDomain(e.target.value)} />
+                        <input type="text" className="input_domain" placeholder="Search for your new domain" value={newDomain} onKeyDown={handleKeyDown} onChange={(e) => setNewDomain(e.target.value)} />
                         <button id="publish" onClick={publish}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                                 <path
@@ -253,7 +265,7 @@ const Home = () => {
                     </div>
                 </div>
                 <FAQ />
-                <Footer />
+                <Footer link="About us" onLink={gotoAboutus} />
             </div>
             <SaleModal
                 show={openSaleModal}

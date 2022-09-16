@@ -1,0 +1,116 @@
+@media screen and (max-width: 1367px) {
+    #accordionExample {
+        width: 75%;
+    }
+    .bluearea {
+        margin-top: 350px;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    #searchbar h1 {
+        font-size: 28px;
+    }
+    .dropbtn {
+        height: 40px;
+        min-width: 160px;
+    }
+    .bluearea {
+        margin-top: 300px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #searchbar h1 {
+        font-size: 24px;
+        width: 200px;
+    }
+    .dropbtn {
+        font-size: 15px;
+        height: 40px;
+        min-width: 130px;
+    }
+    #searchbar {
+        padding-top: calc(2% + 85px);
+    }
+    #logo {
+        width: 193px;
+    }
+    .bluearea {
+        margin-top: 250px;
+    }
+    .input_domain {
+        height: 60px;
+        font-size: 18px;
+        width: 45%;
+    }
+    #publish {
+        min-width: 130px;
+        height: 60px;
+        font-size: 18px;
+    }
+    #greentext {
+        margin-left: 20%;
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 539px) {
+    #logo {
+        width: 111px;
+    }
+
+    .walletButton {
+        height: 40px;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 8px;
+        min-width: 120px;
+    }
+
+    .footer {
+        font-size: 16px;
+    }
+
+    .accordion-button,
+    .accordion-item {
+        font-size: 16px;
+    }
+
+    #searchbar h1 {
+        font-size: 16px;
+        width: 170px;
+    }
+
+    #yourdomains {
+        right: 3%;
+    }
+    .dropbtn {
+        font-size: 12px;
+        height: 37px;
+        min-width: 90px;
+    }
+    #searchbar {
+        padding-top: calc(2% + 65px);
+    }
+    #ox {
+        font-size: 14px;
+        height: 30px;
+        padding-top: 4px;
+        width: 50px;
+        margin-top: 5px;
+    }
+    .bluearea {
+        margin-top: 200px;
+    }
+    .input_domain {
+        height: 50px;
+        font-size: 14px;
+        width: 50%;
+    }
+    #publish {
+        min-width: 100px;
+        height: 50px;
+        font-size: 14px;
+    }
+}

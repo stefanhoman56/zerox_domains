@@ -24,9 +24,9 @@ button {
     font-size: 20px;
     cursor: pointer;
     align-items: flex-start;
-    padding-left: 0%;
     min-width: 200px;
     font-family: Rubik, sans-serif;
+    padding: 0;
 }
 
 h1 {

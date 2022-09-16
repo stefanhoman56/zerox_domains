@@ -1,35 +1,51 @@
 .footer {
     /* padding-left: 5%; */
-    /* display: flex; */
-    vertical-align: middle;
-    position: absolute;
-    left: 0;
+    display: flex;
+    /* vertical-align: middle; */
+    /* position: absolute; */
+    /* left: 0; */
     background-color: #202846;
     width: 100%;
-    height: 10rem;
+    min-height: 10rem;
     text-align: center;
-    padding-top: 60px;
+    /* padding-top: 60px; */
     font-size: 20px;
     font-weight: 500;
     color: white;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    padding: 20px;
 }
 
 #contactus,
 #copyright,
 #aboutus {
-    width: 33%;
-    float: left;
+    /* width: 33%;
+    float: left; */
 }
 
 #copyright {
-    padding-left: 5%;
-    float: left;
+    /* padding-left: 5%; */
+    /* float: left; */
 }
 
 #contactus {
-    margin-top: -1.8%;
+    /* margin-top: -1.8%;
     padding-right: 5%;
-    float: right;
+    float: right; */
+}
+
+.footer > div {
+    margin-bottom: 20px;
+}
+
+.footer > div:last-child {
+    margin-bottom: 0px;
+}
+
+.about {
+    margin-bottom: 0;
 }
 
 .about:hover {

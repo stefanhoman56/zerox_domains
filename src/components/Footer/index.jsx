@@ -1,24 +1,17 @@
-import { useNavigate } from "react-router-dom";
 import './style.css';
 
-const Footer = () => {
-    const navigate = useNavigate();
-
-    const gotoAboutus = () => {
-        navigate('/aboutus');
-    };
-
+const Footer = ({link, onLink}) => {
     return (
         <>
-            <div className="footer">
-                <div id="copyright">
+            <div className="footer row">
+                <div id="copyright" className="col-sm-4">
                     Copyright © 2022 ZeroX Domains.<br />
                     All Rights Reserved.
                 </div>
-                <div id="aboutus" onClick={gotoAboutus}>
-                    <p className="about"> About us</p>
+                <div id="aboutus" onClick={onLink} className="col-sm-4">
+                    <p className="about"> {link}</p>
                 </div>
-                <div id="contactus">
+                <div id="contactus" className="col-sm-4">
                     Contact us&nbsp;&nbsp;&nbsp;
                     <a href="https://twitter.com/ZeroxDomains" target="_blank" rel="noreferrer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#8090d1" className="bi bi-twitter" viewBox="0 0 16 16">
