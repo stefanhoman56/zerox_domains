@@ -36,21 +36,7 @@ const Home = () => {
     const gotoAboutus = () => {
         navigate('/aboutus');
     };
-
-    const defaultProvider = new ethers.providers.InfuraProvider(RinkebyChainID, "ddef606e612846de9e71a2174cea02fb");
-    const readContract = new ethers.Contract(ContractAddress, ContractABI, defaultProvider);
-
-    const connectWallet = async () => {
-        try {
-            const provider = await web3Modal.connect();
-            const library = new ethers.providers.Web3Provider(provider);
-            const accounts = await library.listAccounts();
-            const network = await library.getNetwork();
-            setLibrary(library);
-            if (accounts)
-                setAccount(accounts[0]);
-            
-            const contract = new ethers.Contract(ContractAddress, ContractABI, library.getSigner());
+s.Contract(ContractAddress, ContractABI, library.getSigner());
             setUserContract(contract);
         } catch (error) {
             setMessage({
