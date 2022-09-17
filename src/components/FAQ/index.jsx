@@ -26,8 +26,10 @@ const FAQ = () => {
                             </button>
                         </h2>
                         <Collapse id="collapse1" className="accordion-collapse" in={collapseOpen === 0}>
-                            <div className="accordion-body">
-                                Your domain is stored on the blockchain after it has been purchased.
+                            <div>
+                                <div className="accordion-body">
+                                    Your domain is stored on the blockchain after it has been purchased.
+                                </div>
                             </div>
                         </Collapse>
                     </div>
@@ -39,8 +41,10 @@ const FAQ = () => {
                             </button>
                         </h2>
                         <Collapse id="collapseTwo" className="accordion-collapse" in={collapseOpen === 1}>
-                            <div className="accordion-body">
-                                Metamask and Coinbase Wallet are supported.
+                            <div>
+                                <div className="accordion-body">
+                                    Metamask and Coinbase Wallet are supported.
+                                </div>
                             </div>
                         </Collapse>
                     </div>
@@ -52,7 +56,7 @@ const FAQ = () => {
                             </button>
                         </h2>
                         <Collapse id="collapseThree" className="accordion-collapse" in={collapseOpen === 2}>
-                            <div className="accordion-body">Short answer: no.</div>
+                            <div><div className="accordion-body">Short answer: no.</div></div>
                         </Collapse>
                     </div>
                     <div className="accordion-item">
@@ -63,9 +67,11 @@ const FAQ = () => {
                             </button>
                         </h2>
                         <Collapse id="collapse4" className="accordion-collapse" in={collapseOpen === 3}>
-                            <div className="accordion-body">Straight after you purchase your domain, an Etherscan link will
-                                appear, directing you to the particular domain transaction. Please note that this link
-                                will disappear after you refresh or leave the website.
+                            <div>
+                                <div className="accordion-body">Straight after you purchase your domain, an Etherscan link will
+                                    appear, directing you to the particular domain transaction. Please note that this link
+                                    will disappear after you refresh or leave the website.
+                                </div>
                             </div>
                         </Collapse>
                     </div>
@@ -76,9 +82,11 @@ const FAQ = () => {
                                     How do I sell my domain?
                             </button>
                         </h2>
-                        <Collapse id="collapse5" className="accordion-collapse collapse"  in={collapseOpen === 4}>
-                            <div className="accordion-body">
-                                Hover over "Your domains" and then select the domain you would like to sell. You can change the price multiple times, paying only gas fees each time.
+                        <Collapse id="collapse5" className="accordion-collapse"  in={collapseOpen === 4}>
+                            <div>
+                                <div className="accordion-body">
+                                    Hover over "Your domains" and then select the domain you would like to sell. You can change the price multiple times, paying only gas fees each time.
+                                </div>
                             </div>
                         </Collapse>
                     </div>

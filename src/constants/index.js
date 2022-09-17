@@ -18,7 +18,8 @@ export const providerOptions = {
     // }
 };
 
-export const ContractAddress = "0x465683c5557D0018BC6279562Aea1362A4916485";
+// export const ContractAddress = "0x465683c5557D0018BC6279562Aea1362A4916485";
+export const ContractAddress = "0x682d3db55f0136a429507D47BC59a82B55A59e24";
 
 export const DomainSuffix = ".0x";
 

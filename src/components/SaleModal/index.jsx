@@ -34,7 +34,7 @@ const SaleModal = ({ show, onConfirm, onCancel, domain }) => {
                     <h5>&nbsp;&nbsp;ETH</h5>
                 </div>
                 <div className="drow note">
-                    <p id="font">(Note: 1% of the sale will go to ZeroX Domains)</p>
+                    <p id="font">(Note: 1% of the sale will go to Zerox Domains)</p>
                 </div>
                 <div className="drow">
                     <div id="cancelb" onClick={onCancel}>Cancel</div>

@@ -31,10 +31,12 @@ const Home = () => {
         text: "",
         error: false,
     })
+    const [txAddress, setTxAddress] = useState("");
     const navigate = useNavigate();
 
     const gotoAboutus = () => {
         navigate('/aboutus');
+        window.scrollTo(0, 0);
     };
 
     const defaultProvider = new ethers.providers.InfuraProvider(RinkebyChainID, "ddef606e612846de9e71a2174cea02fb");
@@ -89,11 +91,26 @@ const Home = () => {
         refreshUserDomains();
     }, [account]);
 
+    function onlyLettersAndNumbers(str) {
+        return /^[A-Za-z0-9]*$/.test(str);
+    }
+
     const publish = async () => {
-        if (!newDomain || !newDomain.length) {
+        let domain = newDomain;
+        if (domain.endsWith(DomainSuffix)) {
+            domain = domain.slice(0, -3);
+        }
+        if (!domain || !newDomain.length) {
             return;
         }
-        const domain = newDomain.endsWith(DomainSuffix) ? newDomain : newDomain + DomainSuffix;
+        if (!onlyLettersAndNumbers(domain)) {
+            setMessage({
+                text: 'Only letters and numbers are currently recognized!',
+                error: true,
+            });
+            return;
+        }
+        domain = domain.toLocaleLowerCase() + DomainSuffix;
         setBuyDomain(domain);
         let price = 10;
         for (let i = 0; i < domain.length - 4; i ++) {
@@ -137,11 +154,12 @@ const Home = () => {
             try {
                 const transaction = await userContract.registerDomain(domain, {value: ethers.utils.parseEther(price.toString())});
                 // const transaction = await userContract.registerDomain(domain, {value: "1000000000"});
-                await transaction.wait();
+                const tx_result = await transaction.wait();
                 setMessage({
                     text: "Successfully bought domain: " + domain,
                     error: false,
                 })
+                setTxAddress(tx_result.transactionHash);
                 refreshUserDomains();
                 setBuyPrice();
             } catch (error) {
@@ -159,15 +177,15 @@ const Home = () => {
     }
 
     const setSalePrice = async (price) => {
-        console.log(ethers.utils.parseEther(price))
         setOpenSaleModal(false);
         try {
             const transaction = await userContract.prepareSale(saleDomain, ethers.utils.parseEther(price));
-            await transaction.wait();
+            const tx_result = await transaction.wait();
             setMessage({
                 text: `Successfully set the selling price as ${price} ETH for domain ${saleDomain}`,
                 error: false
-            })
+            });
+            setTxAddress(tx_result.transactionHash);
         } catch (error) {
             setMessage({
                 text: capitalizeFirstLetter(error.reason),
@@ -231,10 +249,23 @@ const Home = () => {
                     </div>
                     <div className="searched_domain">
                         <div id="greentext"> {buyDomain} </div>
-                        <h3> {initialPrice && `Price: ${initialPrice} ETH`} </h3>
+                        <h3> {initialPrice && `Price: ${parseFloat(initialPrice.toFixed(4))} ETH`} </h3>
                     </div>
                     <div className="drow searchbar">
-                        <input type="text" className="input_domain" placeholder="Search for your new domain" value={newDomain} onKeyDown={handleKeyDown} onChange={(e) => setNewDomain(e.target.value)} />
+                        <input
+                            type="text"
+                            className="input_domain"
+                            placeholder="Search for your new domain"
+                            value={newDomain}
+                            onKeyDown={handleKeyDown}
+                            onChange={(e) => {
+                                setBuyPrice();
+                                setInitialPrice();
+                                setBuyDomain();
+                                setMessage({});
+                                setNewDomain(e.target.value);
+                            }}
+                        />
                         <button id="publish" onClick={publish}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                                 <path
@@ -259,8 +290,10 @@ const Home = () => {
                             </div>
                         )}
                         <p></p>
-                        { !message.error && (
-                            <p id="success">{message.text}</p>
+                        { !message.error && message.text && (
+                            <p id="success">
+                                <a href={"https://rinkeby.etherscan.io/tx/" + txAddress}>{message.text}</a>
+                            </p>
                         )}
                     </div>
                 </div>

@@ -122,6 +122,7 @@
     display: flex;
     margin-top: 2%;
     justify-content: center;
+    align-items: center;
 }
 
 #buyfrom {
@@ -131,6 +132,7 @@
     font-size: 25px;
     font-weight: 600;
     text-align: center;
+    margin-bottom: 0px;
     /* position:absolute; */
 }
 
@@ -148,7 +150,8 @@
 }
 
 #success {
-    color: rgb(127 186 38);
+    /* color: rgb(127 186 38); */
+    color: #254cdd;
     margin-top: 2%;
     font-size: 25px;
     font-weight: 600;
@@ -191,3 +194,7 @@
     padding-top: 0;
     margin-bottom: 0px;
 }
+
+/* #success a {
+    text-decoration: none;
+} */

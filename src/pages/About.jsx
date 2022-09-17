@@ -6,21 +6,22 @@ const About = () => {
 
     const gotoHome = () => {
         navigate('/');
+        window.scrollTo(0, 0);
     };
 
     return (
         <>
             <div style={{marginTop:'3%'}}>
                 <div>
-                    <button onClick={gotoHome}>Back to Home</button>
-                    <h1><b>About us</b></h1>
+                    <button className="to_home" onClick={gotoHome}>Back to Home</button>
+                    <h1 className="about_title"><b>About us</b></h1>
                     <div id="white">
-                        <p id="title">What is ZeroX Domains?</p>
+                        <p id="title">What is Zerox Domains?</p>
                         <p id="text">
-                            ZeroX Domains is a naming service offering the TLD .0x, a fresh variant of what is already
+                            Zerox Domains is a naming service offering the TLD .0x, a fresh variant of what is already
                             available for purchase.
                             <br/><br/>
-                            ZeroX Domains is based on the Ethereum blockchain, giving you total control of your data.
+                            Zerox Domains is based on the Ethereum blockchain, giving you total control of your data.
                         </p>
                     </div>
                     <div id="gray">
@@ -41,7 +42,7 @@ const About = () => {
                     </div>
                     <div id="gray">
                         <p id="title">The functionality…</p>
-                        <p id="text">ZeroX Domains aims to provide meaningful functions and integrations so you can utilize your
+                        <p id="text">Zerox Domains aims to provide meaningful functions and integrations so you can utilize your
                             domain to the max.
                         </p>
                     </div>
