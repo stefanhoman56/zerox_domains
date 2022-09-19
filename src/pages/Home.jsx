@@ -3,7 +3,7 @@ import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 import Web3Modal from "web3modal";
 import { useState } from 'react';
-import { providerOptions, ContractAddress, DomainSuffix, RinkebyChainID, MainnetChainID } from '../constants';
+import { providerOptions, ContractAddress, DomainSuffix, MainnetChainID } from '../constants';
 import { ethers } from "ethers";
 import { useEffect } from 'react';
 import ContractABI from '../constants/abi';
@@ -39,7 +39,7 @@ const Home = () => {
         window.scrollTo(0, 0);
     };
 
-    const defaultProvider = new ethers.providers.InfuraProvider(RinkebyChainID, "ddef606e612846de9e71a2174cea02fb");
+    const defaultProvider = new ethers.providers.InfuraProvider(MainnetChainID, "ae25115749c84bb78103aa7272ba6aab");
     const readContract = new ethers.Contract(ContractAddress, ContractABI, defaultProvider);
 
     const connectWallet = async () => {

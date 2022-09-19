@@ -1,6 +1,6 @@
 {
-  "name": "zerox_test",
-  "homepage": "https://zerox.domains/zerox_test",
+  "name": "zerox",
+  "homepage": "https://zerox.domains",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
