@@ -44,10 +44,14 @@ const Home = () => {
 
     const connectWallet = async () => {
         try {
-            const provider = await web3Modal.connect();
+            let provider;
+            try {
+                provider = await web3Modal.connect();
+            } catch (error) {
+                return;
+            }
             const library = new ethers.providers.Web3Provider(provider);
             const accounts = await library.listAccounts();
-            const network = await library.getNetwork();
             setLibrary(library);
             if (accounts)
                 setAccount(accounts[0]);
@@ -55,10 +59,12 @@ const Home = () => {
             const contract = new ethers.Contract(ContractAddress, ContractABI, library.getSigner());
             setUserContract(contract);
         } catch (error) {
-            setMessage({
-                text: error,
-                error: true,
-            })
+            if (error !== 'Modal closed by user') {
+                setMessage({
+                    text: error,
+                    error: true,
+                })
+            }
         }
     };
 
@@ -83,8 +89,26 @@ const Home = () => {
         if (!account) {
             return;
         }
-        const domains = await readContract.getNames(account);
+        const _domains = await readContract.getNames(account);
+        let domains = [];
+        _domains.map((domain) => {
+            domains.push({
+                name: domain,
+                sale: false,
+            })
+        })
         setUserDomains(domains);
+        if (domains.length) {
+            let result = [];
+            for (let i = 0; i < domains.length; i++) {
+                const domainStatus = await readContract.domainStatus(domains[i].name);
+                result.push({
+                    name: domains[i].name,
+                    sale: domainStatus.toNumber() == 1,
+                })
+            }
+            setUserDomains(result);
+        }
     };
 
     useEffect(async () => {
@@ -96,21 +120,21 @@ const Home = () => {
     }
 
     const publish = async () => {
-        let domain = newDomain;
+        if (!newDomain || !newDomain.length) {
+            return;
+        }
+        let domain = newDomain.toLocaleLowerCase();
         if (domain.endsWith(DomainSuffix)) {
             domain = domain.slice(0, -3);
         }
-        if (!domain || !newDomain.length) {
-            return;
-        }
-        if (!onlyLettersAndNumbers(domain)) {
+        if (!domain || !domain.length || !onlyLettersAndNumbers(domain)) {
             setMessage({
                 text: 'Only letters and numbers are currently recognized!',
                 error: true,
             });
             return;
         }
-        domain = domain.toLocaleLowerCase() + DomainSuffix;
+        domain = domain + DomainSuffix;
         setBuyDomain(domain);
         let price = 10;
         for (let i = 0; i < domain.length - 4; i ++) {
@@ -230,13 +254,14 @@ const Home = () => {
                                                 key={index}
                                                 onMouseEnter={() => setSellIndex(index)}
                                                 onMouseLeave={() => setSellIndex(-1)}
-                                                onClick={() => showSaleModal(domain)}
+                                                onClick={() => showSaleModal(domain.name)}
+                                                className={domain.sale ? "for-sale" : ""}
                                             >
                                                 { sellIndex === index ? (
                                                     <center style={{fontWeight: '600', cursor: 'pointer'}}>
                                                         SELL
                                                     </center>
-                                                ) : domain}
+                                                ) : domain.name}
                                             </a>
                                         ))}
                                     </div>
@@ -292,7 +317,7 @@ const Home = () => {
                         <p></p>
                         { !message.error && message.text && (
                             <p id="success">
-                                <a href={"https://rinkeby.etherscan.io/tx/" + txAddress}>{message.text}</a>
+                                <a target="_blank" href={"https://rinkeby.etherscan.io/tx/" + txAddress}>{message.text}</a>
                             </p>
                         )}
                     </div>

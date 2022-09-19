@@ -36,13 +36,17 @@
     float: right; */
 }
 
+.footer {
+    margin-bottom: -20px;
+}
+
 .footer > div {
     margin-bottom: 20px;
 }
 
-.footer > div:last-child {
+/* .footer > div:last-child {
     margin-bottom: 0px;
-}
+} */
 
 .about {
     margin-bottom: 0;

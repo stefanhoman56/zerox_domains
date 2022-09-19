@@ -85,7 +85,8 @@ const FAQ = () => {
                         <Collapse id="collapse5" className="accordion-collapse"  in={collapseOpen === 4}>
                             <div>
                                 <div className="accordion-body">
-                                    Hover over "Your domains" and then select the domain you would like to sell. You can change the price multiple times, paying only gas fees each time.
+                                    Hover over "Your domains" and then select the domain you would like to sell. You can change the price multiple times, paying only gas fees each time. 
+                                    <p style={{marginBottom:0, marginTop: "8px"}}>Domains you have put up for sale are highlighted in red.</p>
                                 </div>
                             </div>
                         </Collapse>
