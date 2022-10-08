@@ -30,7 +30,7 @@ const About = () => {
                             Any domain can be bought without restriction on character length. We believe that everyone
                             should have the chance of purchasing something unique and special to them.
                             <br/><br/>
-                            Currently, only English letters and numbers are recognized. This will change as the ecosystem develops.
+                            Currently, only English and Arabic are supported. This will change as the ecosystem develops.
                         </p>
                     </div>
                     <div id="white">

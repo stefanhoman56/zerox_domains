@@ -119,6 +119,16 @@ const Home = () => {
         return /^[A-Za-z0-9]*$/.test(str);
     }
 
+    // const isItAllArabic =s=>(!/[^\u0600-\u06FF ]/.test(s));
+    const isItAllArabic =s=>(!/[^\u0621-\u063A\u0641-\u064A\u0660-\u0669]/.test(s));
+    const isItAllChinese = s => (!/[^\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B\u3400-\u4DB5\u4E00-\u9FD5\uF900-\uFA6D\uFA70-\uFAD9]/.test(s));
+
+    function onlyArabicLetters(str) {
+        console.log(str);
+        return /[^\u0600-\u06FF]/.test(str);
+    }
+    // يبتسم
+
     const publish = async () => {
         if (!newDomain || !newDomain.length) {
             return;
@@ -127,9 +137,9 @@ const Home = () => {
         if (domain.endsWith(DomainSuffix)) {
             domain = domain.slice(0, -3);
         }
-        if (!domain || !domain.length || !onlyLettersAndNumbers(domain)) {
+        if (!domain || !domain.length || (!onlyLettersAndNumbers(domain) && !isItAllArabic(domain) && !isItAllChinese(domain))) {
             setMessage({
-                text: 'Only letters and numbers are currently recognized!',
+                text: 'Domain malformed: unsupported character(s) detected.',
                 error: true,
             });
             return;
@@ -180,7 +190,8 @@ const Home = () => {
                 // const transaction = await userContract.registerDomain(domain, {value: "1000000000"});
                 const tx_result = await transaction.wait();
                 setMessage({
-                    text: "Successfully bought domain: " + domain,
+                    // text: "Successfully bought domain: " + domain,
+                    text: "Successfully bought domain",
                     error: false,
                 })
                 setTxAddress(tx_result.transactionHash);
@@ -206,6 +217,7 @@ const Home = () => {
             const transaction = await userContract.prepareSale(saleDomain, ethers.utils.parseEther(price));
             const tx_result = await transaction.wait();
             setMessage({
+                // text: `Successfully set the selling price as ${price} ETH for domain ${saleDomain}`,
                 text: `Successfully set the selling price as ${price} ETH for domain ${saleDomain}`,
                 error: false
             });
@@ -273,7 +285,12 @@ const Home = () => {
                         <div id="ox">.0x</div>
                     </div>
                     <div className="searched_domain">
-                        <div id="greentext"> {buyDomain} </div>
+                        {buyDomain && (
+                            <div id="greentext" style={{display:"flex"}}> 
+                                <div>{buyDomain.slice(0, -3)} </div>
+                                .0x
+                            </div>
+                        )}
                         <h3> {initialPrice && `Price: ${parseFloat(initialPrice.toFixed(4))} ETH`} </h3>
                     </div>
                     <div className="drow searchbar">
